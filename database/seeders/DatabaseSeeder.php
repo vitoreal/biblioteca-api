@@ -11,9 +11,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
-        
-        //$this->call(ViagemSeeder::class);
+        $this->call(AutorSeeder::class);
+        $this->call(AssuntoSeeder::class);
 
     }
 }
