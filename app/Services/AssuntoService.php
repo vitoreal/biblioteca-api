@@ -36,13 +36,8 @@ class AssuntoService extends AbstractRepository {
         // Alterando os dados do usuario
         $repository = new AssuntoRepository($this->model);
 
-        $acao = ['cadastrado', 'cadastrar'];
-
         if($request->id){
-
             $assunto = $repository->buscarPorId($request->id);
-            $acao = ['alterado', 'alterar'];
-
         } else {
             $assunto = new Assunto();
         }
