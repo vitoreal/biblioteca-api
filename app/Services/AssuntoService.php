@@ -31,7 +31,7 @@ class AssuntoService extends AbstractRepository {
         return $total;
 
     }
-    public function salvar($request): array{
+    public function salvar($request): mixed {
         
         // Alterando os dados do usuario
         $repository = new AssuntoRepository($this->assunto);

@@ -3,16 +3,14 @@
 namespace App\Http\Controllers\Assunto;
 
 use App\Http\Controllers\Controller;
-use App\Models\Assunto;
 use App\Services\AssuntoService;
 use Exception;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
-use PDO;
 use PDOException;
-use Throwable;
 
 class SalvarAssuntoController extends Controller
 {
@@ -24,16 +22,30 @@ class SalvarAssuntoController extends Controller
     }
 
    
-    public function __invoke(Request $request){
+    public function __invoke(Request $request): JsonResponse {
 
         try {
 
-            $validator = Validator::make($request->all(), [
+            $rules = [
                 'descricao' => 'required|string|max:20',
-            ]);
+            ];
+
+            $messages = [
+                'descricao.required' => 'Campo descrição é o obrigatório',
+                'descricao.max' => 'Campo descrição não pode ultrapassar de 20 caracteres',
+            ];
+
+            $validator = Validator::make($request->all(), $rules, $messages);
 
             if ($validator->fails()) {
-                return response()->json(['type' => 'ERROR', 'mensagem' => 'Não foi possível validar os campos!'], Response::HTTP_BAD_REQUEST);
+
+                $errors = $validator->errors();
+
+                $retorno = [
+                            'type' => 'ERROR',
+                            'mensagem' => $errors->all()[0],
+                            ];
+                return response()->json($retorno, Response::HTTP_BAD_REQUEST);
             }
 
             $total = $this->service->verificarNomeExiste($request);
@@ -43,7 +55,10 @@ class SalvarAssuntoController extends Controller
                 return response()->json($retorno, Response::HTTP_OK);
             }
 
-            $acao = $request->id != null ? ['alterado', 'alterar'] :  ['cadastrado', 'cadastrar'];
+            $acao = ['cadastrado', 'cadastrar'];
+            if($request->id){
+                $acao = ['alterado', 'alterar'];
+            }
 
             $resultado = $this->service->salvar($request);
 
@@ -54,7 +69,6 @@ class SalvarAssuntoController extends Controller
                 $retorno = ['type' => 'SUCESSO', 'mensagem' => 'Registro '.$acao[0].' com sucesso!'];
                 return response()->json($retorno, Response::HTTP_OK);
             }
-
 
         } catch (QueryException $e ) {
             $retorno = [ 'type' => 'ERROR', 'mensagem' => 'Não foi possível realizar a sua solicitação!', 'ERRO' => $e->getMessage() ];

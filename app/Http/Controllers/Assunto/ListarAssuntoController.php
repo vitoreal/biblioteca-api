@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Assunto;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\AssuntoService;
+use App\Services\AssuntoService;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
@@ -17,11 +17,11 @@ class ListarAssuntoController extends Controller
         $this->service = $service;
     }
 
-    public function __invoke( string $startRow, string $limit, string $sortBy): JsonResponse {
+    public function __invoke( string $startRow): JsonResponse {
 
         try {
             
-            $lista = $this->service->listarPagination($startRow, $limit, $sortBy, 'id');
+            $lista = $this->service->listarPagination($startRow, 10, 'asc', 'id');
 
             $retorno = ['lista' => $lista ];
             return response()->json($retorno, Response::HTTP_OK);
