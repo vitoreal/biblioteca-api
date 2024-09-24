@@ -41,7 +41,7 @@ class AutorService extends AbstractRepository {
             $autor = new Autor();
         }
 
-        $autor->descricao = $request->descricao;
+        $autor->nome = $request->nome;
 
         $result = $repository->salvar($autor);
 

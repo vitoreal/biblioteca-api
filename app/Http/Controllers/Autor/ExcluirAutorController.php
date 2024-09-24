@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Autor;
 
 use App\Http\Controllers\Controller;
-use App\Services\AssuntoService;
+use App\Services\AutorService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 class ExcluirAutorController extends Controller
 {
 
-    protected AssuntoService $service;
+    protected AutorService $service;
 
-    public function __construct(AssuntoService $service){
+    public function __construct(AutorService $service){
         $this->service = $service;
     }
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Autor;
 
 use App\Http\Controllers\Controller;
-use App\Services\AssuntoService;
+use App\Services\AutorService;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
@@ -15,9 +15,9 @@ use PDOException;
 class SalvarAutorController extends Controller
 {
 
-    protected AssuntoService $service;
+    protected AutorService $service;
 
-    public function __construct(AssuntoService $service){
+    public function __construct(AutorService $service){
         $this->service = $service;
     }
 
