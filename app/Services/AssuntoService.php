@@ -7,15 +7,15 @@ use App\Repositories\AssuntoRepository;
 
 class AssuntoService extends AbstractRepository {
 
-    protected Assunto $assunto;
+    public Assunto $assunto;
 
     public function __construct(Assunto $assunto){
-        $this->assunto = $assunto;
+        $this->model = $assunto;
     }
 
     public function listarPagination($startRow, $limit, $sortBy, $orderBy): array{
         
-        $repository = new AssuntoRepository($this->assunto);
+        $repository = new AssuntoRepository($this->model);
 
         $lista = $repository->listarPagination($startRow, $limit, $sortBy, $orderBy);
 
@@ -24,7 +24,7 @@ class AssuntoService extends AbstractRepository {
 
     public function verificarNomeExiste($request): int {
         
-        $repository = new AssuntoRepository($this->assunto);
+        $repository = new AssuntoRepository($this->model);
 
         $total = $repository->verificarNomeExiste($request->descricao);
             
@@ -34,7 +34,7 @@ class AssuntoService extends AbstractRepository {
     public function salvar($request): mixed {
         
         // Alterando os dados do usuario
-        $repository = new AssuntoRepository($this->assunto);
+        $repository = new AssuntoRepository($this->model);
 
         $acao = ['cadastrado', 'cadastrar'];
 

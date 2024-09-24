@@ -23,7 +23,7 @@ abstract class AbstractRepository {
 
     }
 
-    public function buscarPorId($id){
+    public function buscarPorId(int $id){
         $this->model = $this->model->find($id);
         return $this->model;
     }
