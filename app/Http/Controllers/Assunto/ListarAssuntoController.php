@@ -17,11 +17,11 @@ class ListarAssuntoController extends Controller
         $this->service = $service;
     }
 
-    public function __invoke( string $startRow): JsonResponse {
+    public function __invoke( string $startRow, string $limit): JsonResponse {
 
         try {
             
-            $lista = $this->service->listarPagination($startRow, 10, 'asc', 'id');
+            $lista = $this->service->listarPagination($startRow, $limit, 'asc', 'id');
 
             $retorno = ['lista' => $lista ];
             return response()->json($retorno, Response::HTTP_OK);

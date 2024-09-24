@@ -43,7 +43,6 @@ abstract class AbstractRepository {
 
         $model->delete();
 
-        //$deleted = $this->model->where('id', $id)->delete();
     }
 
 
