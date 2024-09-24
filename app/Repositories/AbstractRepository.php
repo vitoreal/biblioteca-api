@@ -68,5 +68,12 @@ abstract class AbstractRepository {
 
     }
 
+    public function deletarListaIds($ids){
+        foreach ($ids as $key => $value) {
+            $model = $this->model->find($value);
+            $model->delete();
+        }
+    }
+
 
 }

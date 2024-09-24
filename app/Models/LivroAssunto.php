@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Livros extends Model
+class LivroAssunto extends Model
 {
     use HasFactory;
 
@@ -13,10 +13,7 @@ class Livros extends Model
     protected $table = 'livros';
 
     protected $fillable = [
-        'titulo',
-        'editora',
-        'edicao',
-        'ano_publicacao',
-        'valor'
+        'autor_id',
+        'livro_id',
     ];
 }
