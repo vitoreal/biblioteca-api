@@ -38,13 +38,10 @@ abstract class AbstractRepository {
         return $this->model;
     }
 
-    public function excluir($id){
+    public function excluir($id): bool{
         $model = $this->model->find($id);
-
-        $model->delete();
-
+        return $model->delete();
     }
-
 
     public function listarPagination($startRow, $limit, $sortBy, $orderBy){
 

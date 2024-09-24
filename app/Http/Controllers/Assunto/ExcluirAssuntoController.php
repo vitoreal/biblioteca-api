@@ -8,8 +8,9 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
+use Illuminate\Http\Request;
 
-class BuscarAssuntoController extends Controller
+class ExcluirAssuntoController extends Controller
 {
 
     protected AssuntoService $service;
@@ -18,18 +19,17 @@ class BuscarAssuntoController extends Controller
         $this->service = $service;
     }
 
-    public function __invoke(int $id): JsonResponse {
+    public function __invoke(Request $request): JsonResponse {
 
         try {
-            
-            $result = $this->service->buscarPorId($id);
+            if($request->id) {
+                $result = $this->service->excluir($request->id);
 
-            if($result){
-                $retorno = ['result' => $result ];
-                return response()->json($retorno, Response::HTTP_OK);
+                if($result){
+                    return response()->json(['type' => 'SUCESSO', 'mensagem' => 'Registro deletado com sucesso!'], Response::HTTP_OK);
+                }
             }
-
-            $retorno = [ 'type' => 'ERROR', 'mensagem' => 'Nenhum resultado encontrado!' ];
+            $retorno = [ 'type' => 'ERROR', 'mensagem' => 'Não foi possível realizar a sua solicitação!' ];
             return response()->json($retorno, Response::HTTP_BAD_REQUEST);
 
         } catch (Throwable $e ) {
