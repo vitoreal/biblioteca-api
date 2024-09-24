@@ -8,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
-class ListarAutorController extends Controller
+class ListarAutorPaginationController extends Controller
 {
 
     protected AutorService $service;
@@ -17,11 +17,11 @@ class ListarAutorController extends Controller
         $this->service = $service;
     }
 
-    public function __invoke(): JsonResponse {
+    public function __invoke( string $startRow, string $limit): JsonResponse {
 
         try {
             
-            $lista = $this->service->findAll();
+            $lista = $this->service->listarPagination($startRow, $limit, 'asc', 'id');
 
             $retorno = ['lista' => $lista ];
             return response()->json($retorno, Response::HTTP_OK);
