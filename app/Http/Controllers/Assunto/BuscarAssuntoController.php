@@ -27,7 +27,7 @@ class BuscarAssuntoController extends Controller
             $result = $this->service->buscarPorId($id);
 
             if($result){
-                $retorno = ['lista' => $result ];
+                $retorno = ['result' => $result ];
                 return response()->json($retorno, Response::HTTP_OK);
             }
 
