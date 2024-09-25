@@ -17,10 +17,6 @@ use PDOException;
 class SalvarLivroController extends Controller
 {
 
-    protected LivroService $service;
-    protected LivroAutorService $livroAutorService;
-    protected LivroAssuntoService $livroAssuntoService;
-
     public function __construct(LivroService $service, LivroAutorService $livroAutorService, LivroAssuntoService $livroAssuntoService){
         $this->service = $service;
         $this->livroAutorService = $livroAutorService;
@@ -66,7 +62,7 @@ class SalvarLivroController extends Controller
                             ];
                 return response()->json($retorno, Response::HTTP_BAD_REQUEST);
             }
-            
+
             $total = $this->service->verificaLivroExiste($request);
 
             if($total > 0){
