@@ -22,13 +22,11 @@ class LivroAutorService extends AbstractRepository {
         
         $repository = new LivroAutorRepository($this->model);
 
-        $idsAssunto = json_decode($request->autor);
-
         if($request->id){
             $repository->deletarAssuntoAutorIds($idLivro);
         }
 
-        foreach ($idsAssunto as $key => $value) {
+        foreach ($request->autor as $key => $value) {
             $livroAutorNew = new LivroAutor();
             $livroAutorNew->autor_id = $value;
             $livroAutorNew->livro_id = $idLivro;
