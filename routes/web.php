@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Livro\ReportLivroController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,7 +13,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/livro/report', ReportLivroController::class);
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('report');
 });

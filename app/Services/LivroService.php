@@ -54,4 +54,9 @@ class LivroService extends AbstractRepository {
         return $result;
     }
 
+    public function buscarReport(){
+        $repository = new LivroRepository($this->model);
+        return $repository->buscarReport();
+    }
+
 }

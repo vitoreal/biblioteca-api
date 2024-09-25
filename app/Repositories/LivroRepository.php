@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Facades\DB;
+
 class LivroRepository extends AbstractRepository {
 
     public function verificaLivroExiste($request){
@@ -45,6 +47,11 @@ class LivroRepository extends AbstractRepository {
 
        return $result;
 
+    }
+
+    public function buscarReport(){
+        $livro = DB::table('views_livro_report')->get()->toArray();
+        return $livro;
     }
 
 }

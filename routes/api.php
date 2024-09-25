@@ -13,6 +13,7 @@ use App\Http\Controllers\Autor\SalvarAutorController;
 use App\Http\Controllers\Livro\BuscarLivroController;
 use App\Http\Controllers\Livro\ExcluirLivroController;
 use App\Http\Controllers\Livro\ListarLivroPaginationController;
+use App\Http\Controllers\Livro\ReportLivroController;
 use App\Http\Controllers\Livro\SalvarLivroController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,3 +36,4 @@ Route::get('/livro/listar/{startRow}/{limit}', ListarLivroPaginationController::
 Route::post('/livro/salvar', SalvarLivroController::class);
 Route::get('/livro/buscar/{id}', BuscarLivroController::class);
 Route::post('/livro/excluir', ExcluirLivroController::class);
+Route::post('/livro/gerar-report', ReportLivroController::class);
