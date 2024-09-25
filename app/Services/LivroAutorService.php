@@ -18,19 +18,24 @@ class LivroAutorService extends AbstractRepository {
         $this->model = $livroAutor;
     }
 
-    public function salvarAutor($request, $idLivro): mixed {
+    public function salvarAutor($request, $idLivro): void {
         
         $repository = new LivroAutorRepository($this->model);
 
-        $repository->deletarListaIds($request->assunto);
+        $idsAssunto = json_decode($request->autor);
 
-        $livroAutorNew = new LivroAutor();
-        $livroAutorNew->autor_id = $request->autor;
-        $livroAutorNew->livro_id = $idLivro;
+        if($request->id){
+            $repository->deletarAssuntoAutorIds($idLivro);
+        }
 
-        $result = $repository->salvar($livroAutorNew);
+        foreach ($idsAssunto as $key => $value) {
+            $livroAutorNew = new LivroAutor();
+            $livroAutorNew->autor_id = $value;
+            $livroAutorNew->livro_id = $idLivro;
 
-        return $result;
+            $repository->salvar($livroAutorNew);
+
+        }
     }
 
 }

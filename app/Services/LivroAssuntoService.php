@@ -16,19 +16,23 @@ class LivroAssuntoService extends AbstractRepository {
         $this->model = $livroAssunto;
     }
 
-    public function salvarAssunto($request, $idLivro): mixed {
+    public function salvarAssunto($request, $idLivro): void {
         
         $repository = new LivroAssuntoRepository($this->model);
 
-        $repository->deletarListaIds($request->assunto);
+        $idsAssunto = json_decode($request->assunto);
 
-        $livroAssuntoNew = new LivroAssunto();
-        $livroAssuntoNew->assunto_id = $request->assunto;
-        $livroAssuntoNew->livro_id = $idLivro;
+        if($request->id){
+            $repository->deletarAssuntoAutorIds($idLivro);
+        }
 
-        $result = $repository->salvar($livroAssuntoNew);
+        foreach ($idsAssunto as $key => $value) {
+            $livroAssuntoNew = new LivroAssunto();
+            $livroAssuntoNew->assunto_id = $value;
+            $livroAssuntoNew->livro_id = $idLivro;
 
-        return $result;
+            $repository->salvar($livroAssuntoNew);
+        }
     }
 
 }

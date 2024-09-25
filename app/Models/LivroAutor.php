@@ -10,7 +10,7 @@ class LivroAutor extends Model
     use HasFactory;
 
     public $timestamps = false;
-    protected $table = 'livros';
+    protected $table = 'livro_autor';
 
     protected $fillable = [
         'autor_id',

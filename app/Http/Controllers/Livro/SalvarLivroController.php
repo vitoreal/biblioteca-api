@@ -66,28 +66,29 @@ class SalvarLivroController extends Controller
                             ];
                 return response()->json($retorno, Response::HTTP_BAD_REQUEST);
             }
-            /*
+            
             $total = $this->service->verificaLivroExiste($request);
 
             if($total > 0){
                 $retorno = ['type' => 'WARNING', 'mensagem' => 'Este registro já existe!'];
                 return response()->json($retorno, Response::HTTP_OK);
             }
-*/
+
             $acao = ['cadastrado', 'cadastrar'];
             if($request->id){
                 $acao = ['alterado', 'alterar'];
             }
+        
 
             $lastInsertId = $this->service->salvar($request);
             $this->livroAssuntoService->salvarAssunto($request, $lastInsertId);
-            //$this->livroAutorService->salvarAutor($request, $lastInsertId);
+            $this->livroAutorService->salvarAutor($request, $lastInsertId);
             
-            if($resultado === null){
+            if($lastInsertId === null){
                 $retorno = ['type' => 'ERROR', 'mensagem' => 'Não foi possível '.$acao[1].' o dado!'];
                 return response()->json($retorno, Response::HTTP_BAD_REQUEST);
             } else {
-                $retorno = ['type' => 'SUCESSO', 'mensagem' => 'Registro '.$acao[0].' com sucesso!', $resultado];
+                $retorno = ['type' => 'SUCESSO', 'mensagem' => 'Registro '.$acao[0].' com sucesso!'];
                 return response()->json($retorno, Response::HTTP_OK);
             }
 
@@ -100,7 +101,7 @@ class SalvarLivroController extends Controller
             return response()->json($retorno, Response::HTTP_BAD_REQUEST);
 
         }  catch (Exception $e ) {
-            $retorno = [ 'type' => 'ERROR', 'mensagem' => 'Não foi possível realizar a sua solicitação!', 'ERRO' => get_class($e) ];
+            $retorno = [ 'type' => 'ERROR', 'mensagem' => 'Não foi possível realizar a sua solicitação!', 'ERRO' => $e->getMessage() ];
             return response()->json($retorno, Response::HTTP_BAD_REQUEST);
 
         } 
