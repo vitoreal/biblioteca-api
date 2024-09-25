@@ -7,8 +7,6 @@ use App\Repositories\AutorRepository;
 
 class AutorService extends AbstractRepository {
 
-    public Autor $autor;
-
     public function __construct(Autor $autor){
         $this->model = $autor;
     }

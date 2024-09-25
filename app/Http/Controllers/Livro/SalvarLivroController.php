@@ -22,7 +22,6 @@ class SalvarLivroController extends Controller
         $this->livroAutorService = $livroAutorService;
         $this->livroAssuntoService = $livroAssuntoService;
     }
-
    
     public function __invoke(Request $request): JsonResponse {
 
@@ -74,7 +73,6 @@ class SalvarLivroController extends Controller
             if($request->id){
                 $acao = ['alterado', 'alterar'];
             }
-        
 
             $lastInsertId = $this->service->salvar($request);
             $this->livroAssuntoService->salvarAssunto($request, $lastInsertId);

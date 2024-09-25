@@ -11,8 +11,6 @@ use Throwable;
 class ListarLivroPaginationController extends Controller
 {
 
-    protected LivroService $service;
-
     public function __construct(LivroService $service){
         $this->service = $service;
     }

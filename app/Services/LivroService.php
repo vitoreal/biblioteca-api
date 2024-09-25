@@ -8,8 +8,6 @@ use App\Repositories\LivroRepository;
 
 class LivroService extends AbstractRepository {
 
-    public Livro $livro;
-
     public function __construct(Livro $livro){
         $this->model = $livro;
     }

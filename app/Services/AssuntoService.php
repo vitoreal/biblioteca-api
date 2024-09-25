@@ -7,8 +7,6 @@ use App\Repositories\AssuntoRepository;
 
 class AssuntoService extends AbstractRepository {
 
-    public Assunto $assunto;
-
     public function __construct(Assunto $assunto){
         $this->model = $assunto;
     }

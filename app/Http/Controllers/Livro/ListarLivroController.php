@@ -11,8 +11,6 @@ use Throwable;
 class ListarLivroController extends Controller
 {
 
-    protected AutorService $service;
-
     public function __construct(AutorService $service){
         $this->service = $service;
     }

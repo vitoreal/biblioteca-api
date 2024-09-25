@@ -12,8 +12,6 @@ use App\Repositories\LivroRepository;
 
 class LivroAutorService extends AbstractRepository {
 
-    public LivroAutor $livroAutor;
-
     public function __construct(LivroAutor $livroAutor){
         $this->model = $livroAutor;
     }

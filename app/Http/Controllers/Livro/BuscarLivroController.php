@@ -21,6 +21,8 @@ class BuscarLivroController extends Controller
         try {
             
             $result = $this->service->buscarPorId($id);
+            $result->assuntos;
+            $result->autores;
 
             if($result){
                 $retorno = ['result' => $result ];

@@ -9,8 +9,14 @@ class LivroRepository extends AbstractRepository {
         ->where('titulo', $request->titulo)
         ->where('editora', $request->editora)
         ->where('edicao', $request->edicao)
+        ->where('id', '!=', $request->id)
         ->count();
         return $total;
+    }
+
+    public function buscarPorId(int $id){
+        $this->model = $this->model->find($id);
+        return $this->model;
     }
 
     public function listarPagination($startRow, $limit, $sortBy, $orderBy){

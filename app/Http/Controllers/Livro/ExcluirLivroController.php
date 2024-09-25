@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Livro;
 
 use App\Http\Controllers\Controller;
-use App\Services\AutorService;
+use App\Services\LivroService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,9 +13,7 @@ use Illuminate\Http\Request;
 class ExcluirLivroController extends Controller
 {
 
-    protected AutorService $service;
-
-    public function __construct(AutorService $service){
+    public function __construct(LivroService $service){
         $this->service = $service;
     }
 
