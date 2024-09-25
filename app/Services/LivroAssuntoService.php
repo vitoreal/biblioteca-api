@@ -1,12 +1,9 @@
 <?php
 
 namespace App\Services;
-use App\Models\Autor;
-use App\Models\Livro;
 use App\Models\LivroAssunto;
 use App\Repositories\AbstractRepository;
 use App\Repositories\LivroAssuntoRepository;
-use App\Repositories\LivroRepository;
 
 class LivroAssuntoService extends AbstractRepository {
 

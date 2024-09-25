@@ -15,13 +15,9 @@ use PDOException;
 class SalvarAutorController extends Controller
 {
 
-    protected AutorService $service;
-
     public function __construct(AutorService $service){
         $this->service = $service;
     }
-
-   
     public function __invoke(Request $request): JsonResponse {
 
         try {

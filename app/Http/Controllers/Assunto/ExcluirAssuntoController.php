@@ -14,8 +14,6 @@ use Illuminate\Http\Request;
 class ExcluirAssuntoController extends Controller
 {
 
-    protected AssuntoService $service;
-
     public function __construct(AssuntoService $service){
         $this->service = $service;
     }

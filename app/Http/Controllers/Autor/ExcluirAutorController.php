@@ -14,8 +14,6 @@ use Illuminate\Http\Request;
 class ExcluirAutorController extends Controller
 {
 
-    protected AutorService $service;
-
     public function __construct(AutorService $service){
         $this->service = $service;
     }

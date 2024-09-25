@@ -12,8 +12,6 @@ use Throwable;
 class BuscarAssuntoController extends Controller
 {
 
-    protected AssuntoService $service;
-
     public function __construct(AssuntoService $service){
         $this->service = $service;
     }

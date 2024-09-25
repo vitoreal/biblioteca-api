@@ -11,8 +11,6 @@ use Throwable;
 class ListarAssuntoController extends Controller
 {
 
-    protected AssuntoService $service;
-
     public function __construct(AssuntoService $service){
         $this->service = $service;
     }

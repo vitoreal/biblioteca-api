@@ -58,10 +58,7 @@ abstract class AbstractRepository {
         $query = $this->model;
         $total = $query->count();
         $lista = $query->offset($startRow)->limit($limit)->orderBy($orderBy, $sortBy)->get();
-        foreach ($lista as $key => $value) {
-            $value->assuntos;
-            $value->autores;
-        }
+       
         $result = [
             'total' => $total,
             'lista' => $lista

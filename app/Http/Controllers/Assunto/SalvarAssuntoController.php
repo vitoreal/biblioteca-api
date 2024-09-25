@@ -15,8 +15,6 @@ use PDOException;
 class SalvarAssuntoController extends Controller
 {
 
-    protected AssuntoService $service;
-
     public function __construct(AssuntoService $service){
         $this->service = $service;
     }

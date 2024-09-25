@@ -11,8 +11,6 @@ use Throwable;
 class ListarAssuntoPaginationController extends Controller
 {
 
-    protected AssuntoService $service;
-
     public function __construct(AssuntoService $service){
         $this->service = $service;
     }
@@ -21,7 +19,7 @@ class ListarAssuntoPaginationController extends Controller
 
         try {
             
-            $lista = $this->service->listarPagination($startRow, $limit, 'asc', 'id');
+            $lista = $this->service->listarPagination($startRow, $limit, 'desc', 'id');
 
             $retorno = ['lista' => $lista ];
             return response()->json($retorno, Response::HTTP_OK);
