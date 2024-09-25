@@ -10,7 +10,7 @@ class LivroService extends AbstractRepository {
 
     public Livro $livro;
 
-    public function __construct(Autor $livro){
+    public function __construct(Livro $livro){
         $this->model = $livro;
     }
 
@@ -45,8 +45,11 @@ class LivroService extends AbstractRepository {
         $livro->titulo = $request->titulo;
         $livro->editora = $request->editora;
         $livro->edicao = $request->edicao;
-        $livro->anoPublicacao = $request->anoPublicacao;
-        $livro->valor = $request->valor;
+        $livro->ano_publicacao = $request->anoPublicacao;
+
+        $valor = str_replace(',','.', $request->valor);
+
+        $livro->valor = $valor;
 
         $result = $repository->salvar($livro);
 

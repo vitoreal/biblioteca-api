@@ -10,7 +10,7 @@ class Livro extends Model
     use HasFactory;
 
     public $timestamps = false;
-    protected $table = 'livros';
+    protected $table = 'livro';
 
     protected $fillable = [
         'titulo',

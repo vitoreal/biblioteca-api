@@ -31,7 +31,7 @@ class SalvarAssuntoController extends Controller
             ];
 
             $messages = [
-                'descricao.required' => 'Campo descrição é o obrigatório',
+                'descricao.required' => 'Campo descrição é obrigatório',
                 'descricao.max' => 'Campo descrição não pode ultrapassar de 20 caracteres',
             ];
 

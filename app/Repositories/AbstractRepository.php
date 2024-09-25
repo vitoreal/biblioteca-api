@@ -18,8 +18,8 @@ abstract class AbstractRepository {
 
     public function salvar($request){
 
-        $resposta = $request->save();
-        return $resposta; // true or false
+        $request->save();
+        return $request->id; // last insert id
 
     }
 

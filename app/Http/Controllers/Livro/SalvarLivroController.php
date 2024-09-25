@@ -36,23 +36,22 @@ class SalvarLivroController extends Controller
                 'titulo' => 'required|max:40',
                 'editora' => 'required|max:40',
                 'edicao' => 'required',
-                'anoPublicacao' => 'required|max:4',
                 'valor' => 'required',
                 'assunto' => 'required',
                 'autor' => 'required',
             ];
 
             $messages = [
-                'titulo.required' => 'Campo titulo é o obrigatório',
+                'titulo.required' => 'Campo titulo é obrigatório',
                 'titulo.max' => 'Campo titulo não pode ultrapassar de 40 caracteres',
-                'editora.required' => 'Campo editora é o obrigatório',
+                'editora.required' => 'Campo editora é obrigatório',
                 'editora.max' => 'Campo editora não pode ultrapassar de 40 caracteres',
-                'edicao.required' => 'Campo editora é o obrigatório',
-                'anoPublicacao.required' => 'Campo ano de publicação é o obrigatório',
+                'edicao.required' => 'Campo editora é obrigatório',
+                'anoPublicacao.required' => 'Campo ano de publicação é obrigatório',
                 'anoPublicacao.max' => 'Campo ano de publicação não pode ultrapassar de 4 caracteres',
-                'valor.required' => 'Campo valor é o obrigatório',
-                'assunto.required' => 'Campo assunto é o obrigatório',
-                'autor.required' => 'Campo autor é o obrigatório',
+                'valor.required' => 'Campo valor é obrigatório',
+                'assunto.required' => 'Campo assunto é obrigatório',
+                'autor.required' => 'Campo autor é obrigatório',
             ];
 
             $validator = Validator::make($request->all(), $rules, $messages);
@@ -67,28 +66,28 @@ class SalvarLivroController extends Controller
                             ];
                 return response()->json($retorno, Response::HTTP_BAD_REQUEST);
             }
-
+            /*
             $total = $this->service->verificaLivroExiste($request);
 
             if($total > 0){
                 $retorno = ['type' => 'WARNING', 'mensagem' => 'Este registro já existe!'];
                 return response()->json($retorno, Response::HTTP_OK);
             }
-
+*/
             $acao = ['cadastrado', 'cadastrar'];
             if($request->id){
                 $acao = ['alterado', 'alterar'];
             }
 
-            $resultado = $this->service->salvar($request);
-            $this->livroAssuntoService->salvarAssunto($request, $resultado->id);
-            $this->livroAutorService->salvarAutor($request, $resultado->id);
+            $lastInsertId = $this->service->salvar($request);
+            $this->livroAssuntoService->salvarAssunto($request, $lastInsertId);
+            //$this->livroAutorService->salvarAutor($request, $lastInsertId);
             
             if($resultado === null){
                 $retorno = ['type' => 'ERROR', 'mensagem' => 'Não foi possível '.$acao[1].' o dado!'];
                 return response()->json($retorno, Response::HTTP_BAD_REQUEST);
             } else {
-                $retorno = ['type' => 'SUCESSO', 'mensagem' => 'Registro '.$acao[0].' com sucesso!'];
+                $retorno = ['type' => 'SUCESSO', 'mensagem' => 'Registro '.$acao[0].' com sucesso!', $resultado];
                 return response()->json($retorno, Response::HTTP_OK);
             }
 

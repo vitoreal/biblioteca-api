@@ -31,7 +31,7 @@ class SalvarAutorController extends Controller
             ];
 
             $messages = [
-                'nome.required' => 'Campo nome é o obrigatório',
+                'nome.required' => 'Campo nome é obrigatório',
                 'nome.max' => 'Campo nome não pode ultrapassar de 20 caracteres',
             ];
 
