@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Assunto;
 use App\Http\Controllers\Controller;
 use App\Services\AssuntoService;
 use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
@@ -32,6 +33,9 @@ class ExcluirAssuntoController extends Controller
             $retorno = [ 'type' => 'ERROR', 'mensagem' => 'Não foi possível realizar a sua solicitação!' ];
             return response()->json($retorno, Response::HTTP_BAD_REQUEST);
 
+        } catch (QueryException $e ) {
+            $retorno = [ 'type' => 'ERROR', 'mensagem' => 'Este registro está em uso!', $e->getMessage() ];
+            return response()->json($retorno, Response::HTTP_BAD_REQUEST);
         } catch (Throwable $e ) {
             $retorno = [ 'type' => 'ERROR', 'mensagem' => 'Não foi possível realizar a sua solicitação!', $e->getMessage() ];
             return response()->json($retorno, Response::HTTP_BAD_REQUEST);
