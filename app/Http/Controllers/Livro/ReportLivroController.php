@@ -23,7 +23,7 @@ class ReportLivroController extends Controller
            // $mpdf = new Mpdf();
 
             $result = $this->service->buscarReport();
-            
+
             if($result){
 
                 $livro = [];
@@ -39,20 +39,20 @@ class ReportLivroController extends Controller
                         $livro[$key]['ano_publicacao'] = $value->ano_publicacao;
                         $firstId = $value->id;
                     }
-                   
+
                 }
-                
+
                 array_values($livro); // Acertando as chaves do array
 
                 foreach ($livro as $keyLivro => $valueLivro) {
-                    
+
                     $firstAssunto = 0;
                     foreach ($result as $key => $value) {
                         // pegando os assuntos do livro
                         if($value->id == $valueLivro['id'] && $firstAssunto != $value->assunto){
                             $livro[$keyLivro]['assuntos'][] = $value->assunto;
                             $firstAssunto = $value->assunto;
-                        }     
+                        }
                     }
 
                     $firstAutor = 0;
@@ -61,12 +61,16 @@ class ReportLivroController extends Controller
                         if($valueAutor->id == $valueLivro['id'] && $firstAutor != $valueAutor->autor){
                             $livro[$keyLivro]['autores'][] = $valueAutor->autor;
                             $firstAutor = $valueAutor->autor;
-                        }   
-                        array_unique($livro[$keyLivro]['autores']);  
+                        }
+
                     }
-                    
+
                 }
-               
+
+                foreach ($livro as $key => $value) {
+                    $livro[$key]['autores'] = array_unique($value['autores']);
+                }
+
                 dd($livro);
                 // Write some HTML code:
                // $mpdf->WriteHTML(view('welcome', $result));
@@ -74,13 +78,13 @@ class ReportLivroController extends Controller
                // $mpdf->Output();
 
             } else {
-               
+
                 $mpdf = new Mpdf();
                 $mpdf->WriteHTML('Não foi encontrado nenhum resultado!');
                 $mpdf->Output();
-                
+
             }
-            
+
 
         } catch (Throwable $e ) {
              /*
@@ -90,6 +94,6 @@ class ReportLivroController extends Controller
             */
         }
 
-        
+
     }
 }
