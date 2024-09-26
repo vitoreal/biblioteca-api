@@ -20,6 +20,7 @@ return new class extends Migration
                 li.editora,
                 li.edicao,
                 li.ano_publicacao,
+                li.valor,
                 a.descricao as assunto,
                 a2.nome as autor
             from livro li

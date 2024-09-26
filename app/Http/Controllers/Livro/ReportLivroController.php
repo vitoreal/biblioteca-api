@@ -17,40 +17,41 @@ class ReportLivroController extends Controller
         $this->service = $service;
     }
 
-    public function __invoke(): void {
+    public function __invoke() {
 
         try {
-           // $mpdf = new Mpdf();
+           $mpdf = new Mpdf();
 
             $result = $this->service->buscarReport();
 
             if($result){
 
-                $livro = [];
+                $listaLivros = [];
                 $firstId = 0;
 
                 foreach ($result as $key => $value) {
 
                     if ($firstId != $value->id) {
-                        $livro[$key]['id'] = $value->id;
-                        $livro[$key]['titulo'] = $value->titulo;
-                        $livro[$key]['editora'] = $value->editora;
-                        $livro[$key]['edicao'] = $value->edicao;
-                        $livro[$key]['ano_publicacao'] = $value->ano_publicacao;
+                        $listaLivros[$key]['id'] = $value->id;
+                        $listaLivros[$key]['titulo'] = $value->titulo;
+                        $listaLivros[$key]['editora'] = $value->editora;
+                        $listaLivros[$key]['edicao'] = $value->edicao;
+                        $listaLivros[$key]['ano_publicacao'] = $value->ano_publicacao;
+                        $listaLivros[$key]['valor'] = str_replace('.',',', $value->valor);;
                         $firstId = $value->id;
                     }
 
                 }
 
-                array_values($livro); // Acertando as chaves do array
+                $listaLivros = array_values($listaLivros); // Acertando as chaves do array
 
-                foreach ($livro as $keyLivro => $valueLivro) {
+                foreach ($listaLivros as $keyLivro => $valueLivro) {
 
                     $firstAssunto = 0;
                     foreach ($result as $key => $value) {
                         // pegando os assuntos do livro
                         if($value->id == $valueLivro['id'] && $firstAssunto != $value->assunto){
-                            $livro[$keyLivro]['assuntos'][] = $value->assunto;
+                            $listaLivros[$keyLivro]['assuntos'][] = $value->assunto;
                             $firstAssunto = $value->assunto;
                         }
                     }
@@ -59,7 +60,7 @@ class ReportLivroController extends Controller
                     foreach ($result as $keyAutor => $valueAutor) {
                         // pegando os autores do livro
                         if($valueAutor->id == $valueLivro['id'] && $firstAutor != $valueAutor->autor){
-                            $livro[$keyLivro]['autores'][] = $valueAutor->autor;
+                            $listaLivros[$keyLivro]['autores'][] = $valueAutor->autor;
                             $firstAutor = $valueAutor->autor;
                         }
 
@@ -67,31 +68,32 @@ class ReportLivroController extends Controller
 
                 }
 
-                foreach ($livro as $key => $value) {
-                    $livro[$key]['autores'] = array_unique($value['autores']);
+                foreach ($listaLivros as $key => $value) {
+                    $listaLivros[$key]['autores'] = array_unique($value['autores']);
                 }
 
-                dd($livro);
+                //dd($listaLivros);
                 // Write some HTML code:
-               // $mpdf->WriteHTML(view('welcome', $result));
+                //return view('report', ['livros' => $listaLivros]);
 
-               // $mpdf->Output();
+               $mpdf->WriteHTML(view('report', ['livros' => $listaLivros]));
+               $mpdf->Output();
 
             } else {
 
                 $mpdf = new Mpdf();
                 $mpdf->WriteHTML('Não foi encontrado nenhum resultado!');
+                $mpdf->debug = true;
                 $mpdf->Output();
 
             }
 
 
         } catch (Throwable $e ) {
-             /*
             $mpdf = new Mpdf();
             $mpdf->WriteHTML('Não foi possível realizar a sua solicitação!');
+            $mpdf->debug = true;
             $mpdf->Output();
-            */
         }
 
 
