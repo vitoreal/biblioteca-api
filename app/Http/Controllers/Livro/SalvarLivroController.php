@@ -22,7 +22,7 @@ class SalvarLivroController extends Controller
         $this->livroAutorService = $livroAutorService;
         $this->livroAssuntoService = $livroAssuntoService;
     }
-   
+
     public function __invoke(Request $request): JsonResponse {
 
         try {
@@ -77,7 +77,7 @@ class SalvarLivroController extends Controller
             $lastInsertId = $this->service->salvar($request);
             $this->livroAssuntoService->salvarAssunto($request, $lastInsertId);
             $this->livroAutorService->salvarAutor($request, $lastInsertId);
-            
+
             if($lastInsertId === null){
                 $retorno = ['type' => 'ERROR', 'mensagem' => 'Não foi possível '.$acao[1].' o dado!'];
                 return response()->json($retorno, Response::HTTP_BAD_REQUEST);
@@ -98,6 +98,6 @@ class SalvarLivroController extends Controller
             $retorno = [ 'type' => 'ERROR', 'mensagem' => 'Não foi possível realizar a sua solicitação!', 'ERRO' => $e->getMessage() ];
             return response()->json($retorno, Response::HTTP_BAD_REQUEST);
 
-        } 
+        }
     }
 }
